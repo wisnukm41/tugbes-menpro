@@ -26,8 +26,8 @@ class RoleSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => '1',
-            'name' => 'wis',
-            'email' => 'wis@wis.com',
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
             'password' => '$2y$10$fCqMgcw2sk1TNlXKtB9EbOaxqKniO5lV3Pd6WKxg1DMHCUou3F/Fq'
         ]);
 
