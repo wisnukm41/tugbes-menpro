@@ -1,8 +1,11 @@
 <x-guest-layout>
+    @section('title')
+        <title>Login | Baso Builder</title>
+    @endsection
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="{{ asset('assets/img/baso.svg')}}" class="fill-current text-gray-500" style="max-height: 220px; max-width: 220px"/>
             </a>
         </x-slot>
 
@@ -41,9 +44,12 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 mr-3" href="{{ route('register') }}">
+                    {{ __('Belum Daftar?') }}
+                </a>
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Lupa password?') }}
                     </a>
                 @endif
 

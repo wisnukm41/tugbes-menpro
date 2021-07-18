@@ -50,6 +50,14 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-4">
+                        <b>Harga Iklan</b>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        {{$product->bumpprice ? $product->bumpprice : '-'}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-4">
                         <b>Stok Produk</b>
                     </div>
                     <div class="col-12 col-md-8">
@@ -62,6 +70,14 @@
                     </div>
                     <div class="col-12 col-md-8">
                         {{$product->type}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <b>Label Produk</b>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        {{str_contains($product->tags,'new') ? 'New ':'' }}{{str_contains($product->tags,'bs') ? 'Best-Seller ':'' }}
                     </div>
                 </div>
                 <div class="row">

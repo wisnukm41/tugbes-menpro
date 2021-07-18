@@ -1,0 +1,8 @@
+.f-red{
+  color : #ff2832 !important
+}
+
+.f-red::before{
+  color : #ff2832 !important
+}
+

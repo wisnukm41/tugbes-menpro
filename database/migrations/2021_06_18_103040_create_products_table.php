@@ -18,8 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('name', 255);
             $table->text('description');
             $table->integer('price');
+            $table->integer('bumpprice')->nullable();
             $table->integer('stock');
             $table->enum('type', ['Bahan Dasar', 'Siap Konsumsi', 'Tambahan']);
+            $table->string('tags', 100);
             $table->timestamps();
         });
     }

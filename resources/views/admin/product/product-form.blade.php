@@ -24,7 +24,7 @@
         @csrf
         <div class="form-group">
           <label for="productName">Nama Produk</label>
-          <input type="text" class="form-control {{@$errors->has('name') ? 'is-invalid' : ""}}" id="productName" aria-describedby="emailHelp" placeholder="Masukan Nama Produk" name='name' value="{{!$new ? $product->name : ""}}">
+          <input type="text" class="form-control {{@$errors->has('name') ? 'is-invalid' : ""}}" id="productName" aria-describedby="emailHelp" placeholder="Masukan Nama Produk" name='name' value="{{!$new ? $product->name : ""}}{{ old('name') }}">
           @error('name')
             <div class="invalid-feedback">{{$message}}</div>
           @enderror
@@ -33,6 +33,13 @@
           <label for="inputHarga">Harga</label>
           <input id="inputHarga" type="number" class="form-control {{@$errors->has('price') ? 'is-invalid' : ""}}" name='price' value="{{!$new ? $product->price : ""}}">
           @error('price')
+            <div class="form-error">{{$message}}</div>
+          @enderror
+        </div>
+        <div class="form-group">
+          <label for="bumpHarga">Harga Iklan <small>Optional</small></label>
+          <input id="bumpHarga" type="number" class="form-control {{@$errors->has('bumpprice') ? 'is-invalid' : ""}}" name='bumpprice' value="{{!$new ? $product->bumpprice : ""}}">
+          @error('bumpprice')
             <div class="form-error">{{$message}}</div>
           @enderror
         </div>
@@ -52,8 +59,19 @@
           </select>
         </div>
         <div class="form-group">
+          <label>Label</label>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="cs1" name="tags1" value="new" {{!$new ? (str_contains($product->tags,'new') ? "checked" : '') : ""}}>
+            <label class="custom-control-label" for="cs1">New</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="cs2" name="tags2" value="bs" {{!$new ? (str_contains($product->tags,'bs') ? "checked" : '') : ""}}>
+            <label class="custom-control-label" for="cs2">Best Seller</label>
+          </div>
+        </div>
+        <div class="form-group">
           <label for="description">Deskripsi Produk</label>
-          <textarea name="description" id="editable" style="outline:none;border: 1px solid {{@$errors->has('description') ? '#f92f32' : "#d4cecd"}}; border-radius:6px; padding:10px; min-height:70px">{!! !$new ? $product->description : ""!!}</textarea>
+          <textarea name="description" id="editable" style="outline:none;border: 1px solid {{@$errors->has('description') ? '#f92f32' : "#d4cecd"}}; border-radius:6px; padding:10px; min-height:70px">{!! !$new ? $product->description : ""!!}{!! old('description') !!}</textarea>
           @error('description')
             <div class="form-error">{{$message}}</div>
           @enderror
@@ -87,6 +105,16 @@
         max: 100000000,
         decimal: 2,
         initval: 0,
+        step:1000,
+        verticalbuttons: true,
+        mousewheel: true,
+        prefix: 'Rp.',
+      }); 
+
+      $('#bumpHarga').TouchSpin({
+        min: 0,
+        max: 100000000,
+        decimal: 2,
         step:1000,
         verticalbuttons: true,
         mousewheel: true,

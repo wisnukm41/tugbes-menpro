@@ -1,4 +1,7 @@
 <x-guest-layout>
+    @section('title')
+        <title>Konfirmasi Password | Baso Builder</title>
+    @endsection
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">

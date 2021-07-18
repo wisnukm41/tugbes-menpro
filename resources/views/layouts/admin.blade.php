@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('templates.head')
+@include('templates.admin.head')
 @yield('page-head')
 
 <body id="page-top">
   <div id="wrapper">
-    @include('templates.sidebar')
+    @include('templates.admin.sidebar')
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
-        @include('templates.topbar')
+        @include('templates.admin.topbar')
 
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
@@ -34,7 +34,7 @@
                   <form action="{{route('logout')}}" method="post">
                     @csrf
                   <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <button href="#" class="btn btn-primary" type="submit">Logout</button>
+                  <button class="btn btn-primary" type="submit">Logout</button>
                   </form>
                 </div>
               </div>
@@ -44,7 +44,7 @@
         </div>
         <!---Container Fluid-->
       </div>
-      @include('templates.footer')
+      @include('templates.admin.footer')
     </div>
   </div>
 
@@ -53,7 +53,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  @include('templates.script')
+  @include('templates.admin.script')
   @yield('page-script')
 </body>
 

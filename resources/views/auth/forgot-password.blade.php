@@ -1,13 +1,16 @@
 <x-guest-layout>
+    @section('title')
+        <title>Lupa Password | Baso Builder</title>
+    @endsection
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img src="{{ asset('assets/img/baso.svg')}}" class="fill-current text-gray-500" style="max-height: 220px; max-width: 220px"/>
             </a>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            {{ __('Lupa password? Jangan khawatir, kita akan kirim password baru yang bisa kamu pilih ke email kamu.') }}
         </div>
 
         <!-- Session Status -->

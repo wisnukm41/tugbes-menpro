@@ -17,7 +17,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('auth.login');
+        $data = [
+            'title' => 'Login | Baso Builder'
+        ];
+        return view('auth.login', $data);
     }
 
     /**

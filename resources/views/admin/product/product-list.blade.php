@@ -26,6 +26,7 @@
               <th>Harga</th>
               <th>Stok</th>
               <th>Tipe</th>
+              <th>Waktu</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -35,20 +36,24 @@
               <th>Harga</th>
               <th>Stok</th>
               <th>Tipe</th>
+              <th>Waktu</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
           <tbody>
             @foreach ($products as $p)
+              <tr>
                 <td>{{$p->name}}</td>
                 <td>{{$p->price}}</td>
                 <td>{{$p->stock}}</td>
                 <td>{{$p->type}}</td>
+                <td>{{date('d-m-Y h:i A', strtotime($p->created_at))}}</td>
                 <td>
                   <span>
                     <a href="{{route('admin-showProduct',['id'=>$p->id])}}" class="btn btn-primary btn-sm"><i class="far fa-eye"></i></a>
                   </span>
                 </td>
+              </tr>
             @endforeach
           </tbody>
         </table>

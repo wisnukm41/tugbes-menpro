@@ -22,7 +22,7 @@ class AdminMiddleware
         if ($user->roles()->first()->level == 'admin') :
             return $next($request);
         else :
-            return redirect('user');
+            return redirect()->route('home');
         endif;
     }
 }
