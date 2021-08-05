@@ -2,9 +2,9 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
     <div class="sidebar-brand-icon">
-      <img src="{{ asset('assets/img/logo/logo2.png')}}">
+      <img src="{{ asset('assets/img/baso.svg')}}">
     </div>
-    <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+    <div class="sidebar-brand-text mx-3">Baso Builder</div>
   </a>
   <hr class="sidebar-divider my-0">
   <li class="nav-item">
@@ -28,9 +28,22 @@
     </a>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="{{route('admin-transaction')}}">
+      <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+      <span>Pesanan</span>
+    </a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link" href="{{route('admin-messages')}}">
       <i class="fa fa-envelope"></i>
       <span>Pesan</span>
+    </a>
+  </li>
+  <hr class="sidebar-divider">
+  <li class="nav-item">
+    <a class="nav-link" href="#">
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      <span>Setting</span>
     </a>
   </li>
   <hr class="sidebar-divider">

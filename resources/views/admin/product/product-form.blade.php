@@ -51,6 +51,13 @@
           @enderror
         </div>
         <div class="form-group">
+          <label for="inputWeight">Berat (gram)</label>
+          <input id="inputWeight" type="number" class="form-control {{@$errors->has('weight') ? 'is-invalid' : ""}}" name='weight' value="{{!$new ? $product->weight : ""}}">
+          @error('weight')
+            <div class="form-error">{{$message}}</div>
+          @enderror
+        </div>
+        <div class="form-group">
           <label for="selectType">Tipe Produk</label>
           <select class="form-control" id="selectType" name='type'>
             <option {{@$product->type == 'Bahan Dasar' ? "selected" : ""}}>Bahan Dasar</option>
@@ -124,6 +131,16 @@
       $('#inputStock').TouchSpin({
         min: 0,
         max: 1000,
+        decimal: 2,
+        initval: 0,
+        step:1,
+        verticalbuttons: true,
+        mousewheel: true,
+      }); 
+
+      $('#inputWeight').TouchSpin({
+        min: 0,
+        max: 1000000,
         decimal: 2,
         initval: 0,
         step:1,

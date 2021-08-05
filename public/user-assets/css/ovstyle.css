@@ -6,3 +6,73 @@
   color : #ff2832 !important
 }
 
+.delete-btn{
+  border:none;
+  outline: inherit;
+  border-radius: 50%;
+}
+
+.delete-btn:hover{
+  color: white;
+  background-color: #ff2832;
+}
+
+.btn-rmv{
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.not-available{
+  color: red;
+  font-weight: 700;
+}
+
+.profile-cont{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.profile-table td{
+  padding-bottom: 10px;
+}
+
+
+.profile-pic{
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  
+}
+
+.profile-pic:hover{
+  border: 2px solid #ff2832;
+}
+
+.img-order {
+  width: 90px;
+  height: 90px;
+}
+
+.p-detail-name{
+  text-decoration: none;
+  color: black;
+}
+.p-detail-name:hover{
+  text-decoration: underline;
+}
+
+.product-thumnail img{
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+.product-thumnail figure{
+margin:auto
+}
+

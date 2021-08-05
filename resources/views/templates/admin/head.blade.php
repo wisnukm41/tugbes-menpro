@@ -4,8 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link href="{{ asset('assets/img/logo/logo.png')}}" rel="icon">
-  <title>{{@$title ? $title : "Blank"}}</title>
+  <link href="{{ asset('assets/img/baso.svg')}}" rel="icon">
+  <title>{{@$title ? $title : "Blank"}} | Baso Builder</title>
   <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

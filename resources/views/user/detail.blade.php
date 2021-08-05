@@ -8,31 +8,40 @@
       <div class="detail-media">
         <div class="product-gallery" style="width: 430px">
           <ul class="slides">
-            <li data-thumb="{{ asset('user-assets/images/products/digital_18.jpg')}}">
-              <img src="{{ asset('user-assets/images/products/digital_18.jpg')}}" alt="product thumbnail" />
-            </li>
-            <li data-thumb="{{ asset('user-assets/images/products/digital_18.jpg')}}">
-              <img src="{{ asset('user-assets/images/products/digital_18.jpg')}}" alt="product thumbnail" />
-            </li>
-            <li data-thumb="{{ asset('user-assets/images/products/digital_18.jpg')}}">
-              <img src="{{ asset('user-assets/images/products/digital_18.jpg')}}" alt="product thumbnail" />
-            </li>
-            <li data-thumb="{{ asset('user-assets/images/products/digital_18.jpg')}}">
-              <img src="{{ asset('user-assets/images/products/digital_18.jpg')}}" alt="product thumbnail" />
-            </li>
+            @for ($i = 0; $i < 4; $i++)
+              @if (!empty($detail->images[$i]))
+              <li data-thumb="{{ asset('files/images/'.$detail->images[$i]->image)}}">
+                <img src="{{ asset('files/images/'.$detail->images[$i]->image)}}" alt="product thumbnail" />
+              </li>
+              @else
+              <li data-thumb="{{ asset('files/images/no-image.jpg')}}">
+                <img src="{{ asset('files/images/no-image.jpg')}}" alt="product thumbnail" />
+              </li>
+              @endif
+
+            @endfor
           </ul>
         </div>
       </div>
       <div class="detail-info">
         <div class="product-rating">
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          <a href="#" class="count-review">(05 review)</a>
+          @if ($detail->review->count('rating') > 0)
+            @for ($i = 1; $i < 6; $i++)
+                @if ($i <= $detail->review->avg('rating'))
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                @else
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                @endif
+            @endfor    
+            <a href="#" class="count-review">{{$detail->review->count('rating')}} review</a>
+          @endif
         </div>
         <h2 class="product-name">{{$detail->name}}</h2>
+        <div class="short-desc">
+          <ul>
+              <li>Weight : {{$detail->weight / 1000}} Kg</li>
+          </ul>
+      </div>
         @if ($detail->bumpprice) 
         <div class="wrap-price"><ins><p class="product-price">Rp. {{number_format($detail->price,0,",",".")}}</p></ins> <del><p class="product-price">Rp. {{number_format($detail->bumpprice,0,",",".")}}</p></del></div>   
         @else
@@ -53,7 +62,7 @@
             @csrf
           <div class="quantity-input">
             <input type="hidden" name="id" value="{{$detail->id}}">
-            <input type="text" name="product-quatity" value="1" data-max="{{$detail->stock}}" pattern="[0-9]*" readonly>
+            <input type="text" name="product-quatity" class="inp-qty" value="1" data-max="{{$detail->stock}}" pattern="[0-9]*" readonly>
             <a class="btn btn-reduce" href="#"></a>
             <a class="btn btn-increase" href="#"></a>
           </div>
@@ -61,9 +70,21 @@
         </div>
         @endif
         <div class="wrap-butons">
-          <a href="{{route('add-chart')}}" class="btn add-to-cart" {{$detail->stock <= 0 ? "style=pointer-events:none" : ""}} onclick="event.preventDefault();document.getElementById('qty-form').submit();">Add to Cart</a>
+          <a class="btn add-to-cart" {{$detail->stock <= 0 ? "style=pointer-events:none" : ""}} onclick="event.preventDefault();document.getElementById('qty-form').submit();">Add to Cart</a>
           <div class="wrap-btn">
-              <span ><a href="#" class="btn btn-wishlist f-red" >Wishlist</a></span>
+              <span>
+                @if (check_wishlist($detail->id))
+                <form action="{{route('destroy-wishlist-one',['id'=> $detail->id])}}" method="POST">
+                  @csrf
+                  <button class="btn btn-wishlist f-red btn-rmv" >Wishlist</button>
+                </form>
+                @else
+                <form action="{{route('add-wishlist',['id'=> $detail->id])}}" method="POST">
+                  @csrf
+                  <button class="btn btn-wishlist btn-rmv" >Wishlist</button>
+                </form>
+                @endif
+              </span>
           </div>
         </div>
         @endauth
@@ -87,41 +108,45 @@
             <div class="wrap-review-form">
               
               <div id="comments">
-                <h2 class="woocommerce-Reviews-title">01 review for <span>Radiant-360 R6 Chainsaw Omnidirectional [Orage]</span></h2>
+                <h2 class="woocommerce-Reviews-title">{{sizeof($r_data)}} reviews for <span>{{$detail->name}}</span></h2>
                 <ol class="commentlist">
+                  @if (!empty($r_data))
+                  @for ($j = 0; $j < 5 && $j < sizeof($r_data); $j++)
                   <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
-                    <div id="comment-20" class="comment_container"> 
-                      <img alt="" src="assets/images/author-avata.jpg" height="80" width="80">
+                    <div id="comment-20" class="comment_container">
+                      <img src="{{ $r_data[$j]->user->photo == 'user.jpg' ? asset('assets/img/user.png') : asset('files/user_images/'.$r_data[$j]->user->photo)}}" height="80" width="80">
                       <div class="comment-text">
                         <div class="star-rating">
-                          <span class="width-80-percent">Rated <strong class="rating">5</strong> out of 5</span>
+                          <span class="width-{{$r_data[$j]->rating*20}}-percent">Rated <strong class="rating">{{$r_data[$j]->rating}}</strong> out of 5</span>
                         </div>
                         <p class="meta"> 
-                          <strong class="woocommerce-review__author">admin</strong> 
+                          <strong class="woocommerce-review__author">{{$r_data[$j]->user->name}}</strong> 
                           <span class="woocommerce-review__dash">–</span>
-                          <time class="woocommerce-review__published-date" datetime="2008-02-14 20:00" >Tue, Aug 15,  2017</time>
+                          <time class="woocommerce-review__published-date" datetime="2008-02-14 20:00" >{{date('d-m-Y', strtotime($r_data[$j]->created_at))}}</time>
                         </p>
                         <div class="description">
-                          <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                          <p>{{$r_data[$j]->description}}</p>
                         </div>
                       </div>
                     </div>
                   </li>
+                  @endfor
+
+                  @endif
                 </ol>
               </div><!-- #comments -->
-
+              @if ($review)
               <div id="review_form_wrapper">
                 <div id="review_form">
                   <div id="respond" class="comment-respond"> 
-
-                    <form action="#" method="post" id="commentform" class="comment-form" novalidate="">
+                    <form action="{{route('store_review')}}" method="post" id="commentform" class="comment-form">
+                      @csrf
                       <p class="comment-notes">
                         <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
                       </p>
                       <div class="comment-form-rating">
                         <span>Your rating</span>
                         <p class="stars">
-                          
                           <label for="rated-1"></label>
                           <input type="radio" id="rated-1" name="rating" value="1">
                           <label for="rated-2"></label>
@@ -134,19 +159,11 @@
                           <input type="radio" id="rated-5" name="rating" value="5" checked="checked">
                         </p>
                       </div>
-                      <p class="comment-form-author">
-                        <label for="author">Name <span class="required">*</span></label> 
-                        <input id="author" name="author" type="text" value="">
-                      </p>
-                      <p class="comment-form-email">
-                        <label for="email">Email <span class="required">*</span></label> 
-                        <input id="email" name="email" type="email" value="" >
-                      </p>
                       <p class="comment-form-comment">
-                        <label for="comment">Your review <span class="required">*</span>
-                        </label>
-                        <textarea id="comment" name="comment" cols="45" rows="8"></textarea>
+                        <label for="comment">Your review</label>
+                        <textarea id="comment" name="comment" cols="45" rows="8" style="resize: none"></textarea>
                       </p>
+                      <input type="hidden" name="product_id" value="{{$detail->id}}">
                       <p class="form-submit">
                         <input name="submit" type="submit" id="submit" class="submit" value="Submit">
                       </p>
@@ -155,7 +172,7 @@
                   </div><!-- .comment-respond-->
                 </div><!-- #review_form -->
               </div><!-- #review_form_wrapper -->
-
+              @endif
             </div>
           </div>
         </div>
@@ -263,11 +280,15 @@
                 <div class="product-info">
                     <a href="{{route('detail',['id'=>$l->id])}}" class="product-name"><span>{{$l->name}}</span></a>
                     <div class="product-rating">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
+                    @if ($l->review->count('rating') > 0)
+                      @for ($i = 1; $i < 6; $i++)
+                          @if ($i <= $l->review->avg('rating'))
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          @else
+                          <i class="fa fa-star-o" aria-hidden="true"></i>
+                          @endif
+                      @endfor    
+                    @endif
                     </div>
                     @if ($l->bumpprice) 
                     <div class="wrap-price"><ins><p class="product-price">Rp. {{number_format($l->price,0,",",".")}}</p></ins> <del><p class="product-price">Rp. {{number_format($l->bumpprice,0,",",".")}}</p></del></div>   

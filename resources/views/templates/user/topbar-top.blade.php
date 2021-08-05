@@ -10,7 +10,7 @@
                 @if (auth()->user()->roles()->first()->level === 'admin')
                 <li class="menu-item" ><a title="Profile" href="{{route('dashboard')}}">Admin</a></li>
                 @endif
-                <li class="menu-item" ><a title="Profile" href="#">Profile</a></li>
+                <li class="menu-item" ><a title="Profile" href="{{route('profile')}}">Profile</a></li>
                 <li class="menu-item" ><a title="Logout" href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" 
                     style="display: none;">

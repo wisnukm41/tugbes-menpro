@@ -18,7 +18,7 @@ class MessageController extends Controller
             'title' => 'Daftar Pesan',
             'messages' => Message::all(),
         ];
-        return view('admin.messages.messages-list',$data);
+        return view('admin.messages.messages-list', $data);
     }
 
     /**
@@ -31,7 +31,7 @@ class MessageController extends Controller
         $data = [
             'title' => 'Contact Us',
         ];
-        return view('user.messages',$data);
+        return view('user.messages', $data);
     }
 
     /**
@@ -50,7 +50,7 @@ class MessageController extends Controller
             'description' => request('description'),
         ]);
 
-        return redirect()->route('user-messages')->with('success','Message Sent Successfully');
+        return redirect()->route('user-messages')->with('success', 'Message Sent Successfully');
     }
 
     /**
@@ -66,11 +66,11 @@ class MessageController extends Controller
         $message->save();
 
         $data = [
-            'title' => "Lihat Pesan | ".$message->title,
+            'title' => "Lihat Pesan | " . $message->title,
             'message' => $message,
             'id' => $message->id
         ];
-        return view('admin.messages.message-show',$data);
+        return view('admin.messages.message-show', $data);
     }
 
     /**
@@ -107,13 +107,13 @@ class MessageController extends Controller
         $message = Message::find($id);
         $message->delete();
 
-        return redirect()->route('admin-messages')->with('success','Pesan Berhasil Dihapus');
+        return redirect()->route('admin-messages')->with('success', 'Pesan Berhasil Dihapus');
     }
 
     public function destroy_read()
     {
-        $messages = Message::where('new',0)->delete();
+        Message::where('new', 0)->delete();
 
-        return redirect()->route('admin-messages')->with('success','Pesan Terbaca Berhasil Dihapus');
+        return redirect()->route('admin-messages')->with('success', 'Pesan Terbaca Berhasil Dihapus');
     }
 }

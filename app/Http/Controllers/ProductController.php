@@ -52,6 +52,7 @@ class ProductController extends Controller
             'bumpprice' => request('bumpprice'),
             'stock' => request('stock'),
             'description' => request('description'),
+            'weight' => request('weight'),
             'type' => request('type'),
             'tags' => $tags,
         ]);
@@ -117,6 +118,7 @@ class ProductController extends Controller
         $product->stock = request('stock');
         $product->description = request('description');
         $product->type = request('type');
+        $product->weight = request('weight');
         $product->tags = $tags;
         $product->save();
 

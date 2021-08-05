@@ -28,14 +28,16 @@
 
     <div class="widget mercado-widget filter-widget price-filter">
       <h2 class="widget-title">Price</h2>
+      <form action="{{route('shop-type',['type'=>'result'])}}" method="get">
       <div class="widget-content">
         <div id="slider-range"></div>
         <p>
           <label for="amount">Price:</label>
-          <input type="text" id="amount" readonly style="min-width: 130px">
-          <button class="filter-submit">Filter</button>
+          <input type="text" id="amount" name="filter" readonly style="min-width: 130px">
+          <button type="submit" class="filter-submit">Filter</button>
         </p>
       </div>
+      </form>
     </div><!-- Price-->
 
     <div class="widget mercado-widget widget-product">
@@ -67,6 +69,7 @@
 
   </div><!--end sitebar-->
   <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
+    @if ($products->count() > 0)
     <div class="banner-shop">
       <h2>{{@$type ? $type : "All Product"}}</h2>
     </div>
@@ -94,11 +97,14 @@
         </li>
         @endforeach
       </ul>
-
     </div>
+    @else
+        <h2>No Products Found</h2>
+    @endif
+
 
     <div class="wrap-pagination-info">
-      {{ $products->links('vendor.pagination.default') }}
+      {{ $products->withQueryString()->links('vendor.pagination.default') }}
     </div>
   </div><!--end main products area-->
 

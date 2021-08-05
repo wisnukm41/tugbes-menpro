@@ -14,10 +14,13 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->unsignedBigInteger('user_id');
-            $table->enum('status', ['Pending', 'Terkonfirmasi', 'Dikirim', 'Selesai'])->default('Pending');
-            $table->text('receipent');
+            $table->bigInteger('amount');
+            $table->string('status')->default('pending');
+            $table->string('order_id')->nullable();
+            $table->string('va')->nullable();
+            $table->integer('shipment')->default('30000');
             $table->text('address');
             $table->text('contact');
             $table->foreign('user_id')

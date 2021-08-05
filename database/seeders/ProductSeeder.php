@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => $faker->text(100),
                 'price' => $faker->numberBetween(1, 30) . '000',
+                'weight' => $faker->numberBetween(1, 30) . $faker->randomElement(['500', '000', '0000']),
                 'stock' => $faker->numberBetween(1, 40),
                 'description' => $faker->sentence(30, true),
                 'type' => $faker->randomElement(['Bahan Dasar', 'Siap Konsumsi', 'Tambahan']),

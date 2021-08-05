@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('templates.user.head')
+@yield('page-head')
 <body class="home-page home-01 shopping-cart">
 
 	<!-- mobile menu -->
@@ -37,5 +38,6 @@
 	
 	
 	@include('templates.user.script')	
+	@yield('page-script')
 </body>
 </html>

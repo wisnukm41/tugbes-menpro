@@ -67,11 +67,15 @@
                                 <div class="product-info">
                                     <a href="{{route('detail',['id'=>$l->id])}}" class="product-name"><span>{{$l->name}}</span></a>
                                     <div class="product-rating">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    @if ($l->review->count('rating') > 0)
+                                        @for ($i = 1; $i < 6; $i++)
+                                            @if ($i <= $l->review->avg('rating'))
+                                              <i class="fa fa-star" aria-hidden="true"></i>
+                                            @else
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            @endif
+                                        @endfor    
+                                    @endif
                                     </div>
                                     @if ($l->bumpprice) 
                                     <div class="wrap-price"><ins><p class="product-price">Rp. {{number_format($l->price,0,",",".")}}</p></ins> <del><p class="product-price">Rp. {{number_format($l->bumpprice,0,",",".")}}</p></del></div>   
@@ -110,7 +114,7 @@
                             @foreach ($p_raw as $pr)
                                 <div class="product product-style-2 equal-elem ">
                                     <div class="product-thumnail">
-                                        <a href="#" title="{{ $pr->name }}">
+                                        <a href="{{route('detail',['id'=>$pr->id])}}" title="{{ $pr->name }}">
                                             <figure><img src="{{ $pr->images->first() ? asset('files/images/'.$pr->images->first()->image) : asset('files/images/no-image.jpg')}}" width="800" height="800" alt="{{ $pr->name }}"></figure>
                                         </a>
                                         <div class="group-flash">
@@ -125,17 +129,21 @@
                                             @endif
                                         </div>
                                         <div class="wrap-btn">
-                                            <a href="#" class="function-link">quick view</a>
+                                            <a href="{{route('detail',['id'=>$l->id])}}" class="function-link">quick view</a>
                                         </div>
                                     </div>
                                     <div class="product-info">
-                                        <a href="#" class="product-name"><span>{{$pr->name}}</span></a>
+                                        <a href="{{route('detail',['id'=>$pr->id])}}" class="product-name"><span>{{$pr->name}}</span></a>
                                         <div class="product-rating">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        @if ($pr->review->count('rating') > 0)
+                                            @for ($i = 1; $i < 6; $i++)
+                                                @if ($i <= $pr->review->avg('rating'))
+                                                  <i class="fa fa-star" aria-hidden="true"></i>
+                                                @else
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                @endif
+                                            @endfor    
+                                        @endif
                                         </div>
                                         @if ($pr->bumpprice)
                                         <div class="wrap-price"><ins><p class="product-price">Rp. {{number_format($pr->price,0,",",".")}}</p></ins> <del><p class="product-price">Rp.{{number_format($pr->bumpprice,0,",",".")}}</p></del></div>   
@@ -153,7 +161,7 @@
                         @foreach ($p_fin as $pf)
                             <div class="product product-style-2 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="#" title="{{ $pf->name }}">
+                                    <a href="{{route('detail',['id'=>$pf->id])}}" title="{{ $pf->name }}">
                                         <figure><img src="{{ $pf->images->first() ? asset('files/images/'.$pf->images->first()->image) : asset('files/images/no-image.jpg')}}" width="800" height="800" alt="{{ $pf->name }}"></figure>
                                     </a>
                                     <div class="group-flash">
@@ -168,17 +176,21 @@
                                         @endif
                                     </div>
                                     <div class="wrap-btn">
-                                        <a href="#" class="function-link">quick view</a>
+                                        <a  href="{{route('detail',['id'=>$pf->id])}}" class="function-link">quick view</a>
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>{{$pf->name}}</span></a>
+                                    <a  href="{{route('detail',['id'=>$pf->id])}}" class="product-name"><span>{{$pf->name}}</span></a>
                                     <div class="product-rating">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    @if ($pf->review->count('rating') > 0)
+                                        @for ($i = 1; $i < 6; $i++)
+                                            @if ($i <= $pf->review->avg('rating'))
+                                              <i class="fa fa-star" aria-hidden="true"></i>
+                                            @else
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            @endif
+                                        @endfor    
+                                    @endif
                                     </div>
                                     @if ($pf->bumpprice)
                                     <div class="wrap-price"><ins><p class="product-price">Rp. {{number_format($pf->price,0,",",".")}}</p></ins> <del><p class="product-price">Rp.{{number_format($pf->bumpprice,0,",",".")}}</p></del></div>   
@@ -198,7 +210,7 @@
                             @foreach ($p_ext as $pe)
                             <div class="product product-style-2 equal-elem ">
                                 <div class="product-thumnail">
-                                    <a href="#" title="{{ $pe->name }}">
+                                    <a  href="{{route('detail',['id'=>$pf->id])}}" title="{{ $pe->name }}">
                                         <figure><img src="{{ $pe->images->first() ? asset('files/images/'.$pe->images->first()->image) : asset('files/images/no-image.jpg')}}" width="800" height="800" alt="{{ $pe->name }}"></figure>
                                     </a>
                                     <div class="group-flash">
@@ -213,17 +225,21 @@
                                         @endif
                                     </div>
                                     <div class="wrap-btn">
-                                        <a href="#" class="function-link">quick view</a>
+                                        <a href="{{route('detail',['id'=>$pf->id])}}" class="function-link">quick view</a>
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <a href="#" class="product-name"><span>{{$pe->name}}</span></a>
+                                    <a href="{{route('detail',['id'=>$pe->id])}}" class="product-name"><span>{{$pe->name}}</span></a>
                                     <div class="product-rating">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    @if ($pe->review->count('rating') > 0)
+                                        @for ($i = 1; $i < 6; $i++)
+                                            @if ($i <= $pe->review->avg('rating'))
+                                              <i class="fa fa-star" aria-hidden="true"></i>
+                                            @else
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            @endif
+                                        @endfor    
+                                    @endif
                                     </div>
                                     @if ($pe->bumpprice)
                                     <div class="wrap-price"><ins><p class="product-price">Rp. {{number_format($pe->price,0,",",".")}}</p></ins> <del><p class="product-price">Rp.{{number_format($pe->bumpprice,0,",",".")}}</p></del></div>   

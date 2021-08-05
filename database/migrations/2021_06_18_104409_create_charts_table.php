@@ -16,7 +16,7 @@ class CreateChartsTable extends Migration
         Schema::create('charts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
+            $table->uuid('product_id');
             $table->integer('qty')->default(1);
             $table->foreign('user_id')
                 ->references('id')->on('users')

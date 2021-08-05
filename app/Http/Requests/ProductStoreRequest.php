@@ -28,6 +28,7 @@ class ProductStoreRequest extends FormRequest
             'price' => 'required|numeric|min:500',
             'bumpprice' => 'nullable|gt:price',
             'stock' => 'required|numeric',
+            'weight' => 'required|numeric',
             'description' => 'required'
         ];
     }
@@ -40,6 +41,7 @@ class ProductStoreRequest extends FormRequest
             'price.required' => 'Harga Produk Harus Diisi',
             'price.min' => 'Harga Produk Minimal Rp.500',
             'stock.required' => 'Stok Produk Harus Diisi',
+            'weight.required' => 'BeratP Produk Harus Diisi',
             'description.required' => 'Deskripsi Produk Harus Diisi',
             'bumpprice.gt' => 'Harga Iklan Harus lebih Tinggi dari Harga Produk'
         ];
