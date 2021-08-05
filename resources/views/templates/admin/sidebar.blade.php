@@ -40,13 +40,6 @@
     </a>
   </li>
   <hr class="sidebar-divider">
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-      <i class="fa fa-cog" aria-hidden="true"></i>
-      <span>Setting</span>
-    </a>
-  </li>
-  <hr class="sidebar-divider">
   <div class="version" id="version-ruangadmin"></div>
 </ul>
 <!-- Sidebar -->
